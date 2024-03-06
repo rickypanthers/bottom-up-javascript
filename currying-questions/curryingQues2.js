@@ -2,17 +2,14 @@
 
 function sum(...args) {
   let argument = [...args];
-  let counter = 0;
-  return function sum1(b) {
-    if (b) {
-      counter++;
-      argument = argument.concat(b);
-      if (counter === 2) {
-        return argument.reduce((a, b) => a + b, 0);
-      }
+  return function sum1() {
+    if (arguments.length > 0) {
+      argument = argument.concat([...arguments]);
       return sum1;
+    } else {
+      return argument.reduce((a, b) => a + b, 0);
     }
   };
 }
 
-console.log(sum(1, 2, 3, 4, 5, 6, 7)(1)(2));
+console.log(sum(1, 2, 3, 4, 5, 6, 7, 1)(2, 2, 3, 4, 5, 6, 7)());
